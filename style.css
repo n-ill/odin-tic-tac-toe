@@ -1,16 +1,21 @@
+html {
+    background-color: #191919;
+}
+
 .board-container {
     display: grid;
-    grid-template-columns: 200px 200px 200px;
-    grid-template-rows: 200px 200px 200px;
-    /* margin: 150px 600px; */
+    grid-template-columns: 10vw 10vw 10vw;
+    grid-template-rows: 20vh 20vh 20vh;
+    margin: 20vh 35vw;
+
 }
 
 .space-0, .space-1, .space-2, .space-3, .space-4, .space-5 {
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid white;
 }
 
 .space-0, .space-1, .space-3, .space-4, .space-6, .space-7 {
-    border-right: 1px solid black;
+    border-right: 2px solid white;
 }
 
 .space {
@@ -18,5 +23,6 @@
     justify-content: center;
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 100px;
+    font-size: 5vw;
+    color: #e5e5e5;
 }
