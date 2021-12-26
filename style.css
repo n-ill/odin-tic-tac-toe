@@ -1,0 +1,19 @@
+.board-container {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+}
+
+.space-0, .space-1, .space-2, .space-3, .space-4, .space-5 {
+    border-bottom: 1px solid black;
+}
+
+.space-0, .space-1, .space-3, .space-4, .space-6, .space-7 {
+    border-right: 1px solid black;
+}
+
+.space {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 52px;
+    padding: 20px 20px 20px 30px;
+}
