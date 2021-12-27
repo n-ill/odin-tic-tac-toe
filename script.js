@@ -88,32 +88,14 @@ function checkWinner() {
     return 0; // no one has won yet and game is not over yet
 }
 
-p1 = Player('X');
-p2 = Player('O');
-p2.toggleTurn();
-
-document.querySelectorAll('.space').forEach(item => {
-    item.addEventListener('click', () => {
-        let position = parseInt(item.className.substring(item.className.length - 1));
-
-        if (p1.getTurn()) {
-            item.textContent = p1.getSymbol();
-            p1.toggleTurn();
-            p2.toggleTurn();
-            gameBoard.updateBoard(p1.getSymbol(), position);
-        } else {
-            item.textContent = p2.getSymbol();
-            p2.toggleTurn();
-            p1.toggleTurn();
-            gameBoard.updateBoard(p2.getSymbol(), position);
-        }
-
+const game = (() => {
+    const displayWinner = () => {
         let winner = checkWinner();
 
         if (winner !== 0) {
             if (winner === 'Tie') {
                 document.querySelector('.game-result').textContent = 'Tie!';
-                return
+                return true;
             } else {
                 if (winner[3] === 'X') {
                     document.querySelector('.game-result').textContent = 'X Wins!';
@@ -125,10 +107,46 @@ document.querySelectorAll('.space').forEach(item => {
                 document.querySelector(`.space-${winner[0]}`).style.color = '#198C19';
                 document.querySelector(`.space-${winner[1]}`).style.color = '#198C19';
                 document.querySelector(`.space-${winner[2]}`).style.color = '#198C19';
-
-                return
+                return true;
             }
         }
+    }
 
-    })
-})
+    const play = (player1, player2) => {
+        document.querySelectorAll('.space').forEach(item => {
+            item.addEventListener('click', () => {
+                if (displayWinner()) {
+                    return
+                }
+
+                let position = parseInt(item.className.substring(item.className.length - 1));
+
+                if (p1.getTurn()) {
+                    item.textContent = p1.getSymbol();
+                    p1.toggleTurn();
+                    p2.toggleTurn();
+                    gameBoard.updateBoard(p1.getSymbol(), position);
+                } else {
+                    item.textContent = p2.getSymbol();
+                    p2.toggleTurn();
+                    p1.toggleTurn();
+                    gameBoard.updateBoard(p2.getSymbol(), position);
+                }
+
+                if (displayWinner()) {
+                    return
+                }
+            }, { once: true })
+        })
+    }
+
+    return { play };
+})();
+
+p1 = Player('X');
+p2 = Player('O');
+p2.toggleTurn();
+
+game.play(p1,p2);
+
+// start game/ reset game buttons
