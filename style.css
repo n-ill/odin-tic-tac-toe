@@ -1,12 +1,14 @@
 html {
     background-color: #191919;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #e5e5e5;
 }
 
 .board-container {
     display: grid;
-    grid-template-columns: 10vw 10vw 10vw;
-    grid-template-rows: 20vh 20vh 20vh;
-    margin: 20vh 35vw;
+    grid-template-columns: 8vw 8vw 8vw;
+    grid-template-rows: 15vh 15vh 15vh;
+    margin: 15vh 38vw 5vh;
 
 }
 
@@ -22,7 +24,18 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 5vw;
-    color: #e5e5e5;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    margin-left: 1vw;
+}
+
+.game-result {
+    text-align: center;
+    font-size: 5vw;
+    margin-bottom: 25px;
 }
