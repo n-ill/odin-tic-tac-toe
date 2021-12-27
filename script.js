@@ -30,55 +30,55 @@ const Player = symbol => {
 function checkWinner() {
     board = gameBoard.getBoard();
     // rows
-    if (board.slice(0,3) === ['X', 'X', 'X']) {
-        return [0,1,2,'X'];
+    if (board[0] === 'X' && board[1] === 'X' && board[2] === 'X') {
+        return [0, 1, 2, 'X'];
     }
-    if (board.slice(0,3) === ['O', 'O', 'O']) {
-        return [0,1,2,'O'];
+    if (board[0] === 'O' && board[1] === 'O' && board[2] === 'O') {
+        return [0, 1, 2, 'O'];
     }
-    if (board.slice(3,6) === ['X', 'X', 'X']) {
-        return [3,4,5,'X'];
+    if (board[3] === 'X' && board[4] === 'X' && board[5] === 'X') {
+        return [3, 4, 5, 'X'];
     }
-    if (board.slice(3,6) === ['O', 'O', 'O']) {
-        return [3,4,5,'O'];
+    if (board[3] === 'O' && board[4] === 'O' && board[5] === 'O') {
+        return [3, 4, 5, 'O'];
     }
-    if (board.slice(6,9) === ['X', 'X', 'X']) {
-        return [6,7,8,'X'];
+    if (board[6] === 'X' && board[7] === 'X' && board[8] === 'X') {
+        return [6, 7, 8, 'X'];
     }
-    if (board.slice(6,9) === ['O', 'O', 'O']) {
-        return [6,7,8,'O'];
+    if (board[6] === 'O' && board[7] === 'O' && board[8] === 'O') {
+        return [6, 7, 8, 'O'];
     }
     // columns
-    if ([board[0], board[3], board[6] === ['X','X','X']]) {
-        return [0,3,6,'X'];
+    if (board[0] === 'X' && board[3] === 'X' && board[6] === 'X') {
+        return [0, 3, 6, 'X'];
     }
-    if ([board[1], board[4], board[7] === ['X','X','X']]) {
-        return [1,4,7,'X'];
+    if (board[1] === 'X' && board[4] === 'X' && board[7] === 'X') {
+        return [1, 4, 7, 'X'];
     }
-    if ([board[2], board[5], board[8] === ['X','X','X']]) {
-        return [2,5,8,'X'];
+    if (board[2] === 'X' && board[5] === 'X' && board[8] === 'X') {
+        return [2, 5, 8, 'X'];
     }
-    if ([board[0], board[3], board[6] === ['O','O','O']]) {
-        return [0,3,6,'O'];
+    if (board[0] === 'O' && board[3] === 'O' && board[6] === 'O') {
+        return [0, 3, 6, 'O'];
     }
-    if ([board[1], board[4], board[7] === ['O','O','O']]) {
-        return [1,4,7,'O'];
+    if (board[1] === 'O' && board[4] === 'O' && board[7] === 'O') {
+        return [1, 4, 7, 'O'];
     }
-    if ([board[2], board[5], board[8] === ['O','O','O']]) {
-        return [2,5,8,'O'];
+    if (board[2] === 'O' && board[5] === 'O' && board[8] === 'O') {
+        return [2, 5, 8, 'O'];
     }
     // diagonals
-    if ([board[0], board[4], board[8]] === ['X','X','X']) {
-        return [0,4,8,'X'];
+    if (board[0] === 'X' && board[4] === 'X' && board[8] === 'X') {
+        return [0, 4, 8, 'X'];
     }
-    if ([board[2], board[4], board[6]] === ['X','X','X']) {
-        return [2,4,6,'X'];
+    if (board[2] === 'X' && board[4] === 'X' && board[6] === 'X') {
+        return [2, 4, 6, 'X'];
     }
-    if ([board[0], board[4], board[8]] === ['O','O','O']) {
-        return [0,4,8,'O'];
+    if (board[0] === 'O' && board[4] === 'O' && board[8] === 'O') {
+        return [0, 4, 8, 'O'];
     }
-    if ([board[2], board[4], board[6]] === ['O','O','O']) {
-        return [2,4,6,'O'];
+    if (board[2] === 'O' && board[4] === 'O' && board[6] === 'O') {
+        return [2, 4, 6, 'O'];
     }
 
     if (!board.includes('')) {
@@ -108,5 +108,27 @@ document.querySelectorAll('.space').forEach(item => {
             gameBoard.updateBoard(p2.getSymbol(), position);
         }
 
-    }, { once: true })
+        let winner = checkWinner();
+
+        if (winner !== 0) {
+            if (winner === 'Tie') {
+                document.querySelector('.game-result').textContent = 'Tie!';
+                return
+            } else {
+                if (winner[3] === 'X') {
+                    document.querySelector('.game-result').textContent = 'X Wins!';
+                }
+                if (winner[3] === 'O') {
+                    document.querySelector('.game-result').textContent = 'O Wins!';
+                }
+                // sets color of winning x's or o's spaces to green
+                document.querySelector(`.space-${winner[0]}`).style.color = '#198C19';
+                document.querySelector(`.space-${winner[1]}`).style.color = '#198C19';
+                document.querySelector(`.space-${winner[2]}`).style.color = '#198C19';
+
+                return
+            }
+        }
+
+    })
 })
