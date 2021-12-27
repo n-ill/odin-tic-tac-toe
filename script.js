@@ -5,7 +5,9 @@ const gameBoard = (() => {
 
     let getBoard = () => board;
 
-    return { updateBoard, getBoard };
+    let resetBoard = () => board = ['', '', '', '', '', '', '', '', ''];
+
+    return { updateBoard, getBoard, resetBoard };
 })();
 
 const Player = symbol => {
@@ -95,6 +97,7 @@ const game = (() => {
         if (winner !== 0) {
             if (winner === 'Tie') {
                 document.querySelector('.game-result').textContent = 'Tie!';
+                document.querySelector('.play-again-button').style.display = 'block';
                 return true;
             } else {
                 if (winner[3] === 'X') {
@@ -107,6 +110,7 @@ const game = (() => {
                 document.querySelector(`.space-${winner[0]}`).style.color = '#198C19';
                 document.querySelector(`.space-${winner[1]}`).style.color = '#198C19';
                 document.querySelector(`.space-${winner[2]}`).style.color = '#198C19';
+                document.querySelector('.play-again-button').style.display = 'block';
                 return true;
             }
         }
@@ -140,13 +144,32 @@ const game = (() => {
         })
     }
 
-    return { play };
+    const reset = () => {
+        document.querySelectorAll('.space').forEach(item => {
+            item.style.color = '#e5e5e5';
+            item.textContent = '';
+        });
+        document.querySelector('.play-again-button').style.display = 'none';
+
+        gameBoard.resetBoard();
+
+        document.querySelector('.game-result').textContent = '';
+    }
+
+    return { play, reset };
 })();
 
 p1 = Player('X');
 p2 = Player('O');
 p2.toggleTurn();
 
-game.play(p1,p2);
+document.querySelector('.start-button').addEventListener('click', () => {
+    game.play(p1, p2)
+    document.querySelector('.start-button').style.display = 'none';
+});
 
-// start game/ reset game buttons
+document.querySelector('.play-again-button').addEventListener('click', () => {
+    game.reset();
+    game.play(p1,p2);
+});
+
